@@ -60,5 +60,5 @@ Streak is tied to calendar days, not hours
 Developer 
 Faezah Ahmadi
 
-
+![1](src/readme image/1.png)
 
