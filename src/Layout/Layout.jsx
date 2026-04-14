@@ -1,20 +1,29 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
+import { useGoals } from "../context/GoalContext";
 
 import { Box, CssBaseline, ThemeProvider } from "@mui/material"
+import { CircularProgress } from "@mui/material";
+
 import Navbar from "../components/Navbar";
 import { Paper } from "@mui/material";
-import { useMemo, useState } from "react";
-import getTheme from "../theme";
 import { useThemeContext } from "../context/ThemeContext";
 export default function Layout() {
     const { mode, toggleMode, theme } = useThemeContext();
+    const { loading } = useGoals();
 
 
     const handleMenuClick = () => {
         alert("Menu clicked (later we can make this open a drawer)");
     };
 
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" mt={5}>
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
 

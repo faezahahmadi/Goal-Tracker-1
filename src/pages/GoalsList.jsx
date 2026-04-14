@@ -48,6 +48,7 @@ export default function GoalsList() {
         });
 
 
+
     return (
         <Container maxWidth="lg" sx={{ mt: 4 }}>
             <Box justifyContent="space-between" sx={{ mb: 1 }}  >

@@ -7,8 +7,8 @@ import CompletedPreview from "../components/Dashboard/CompletedPreview";
 import QuickActions from "../components/Dashboard/QuickActions";
 import { useLanguage } from "../context/LanguageContext";
 
-export default function Dashboard({ setGoals }) {
-    const { totalCompleted, streak, overallProgress, goals } = useGoals();
+export default function Dashboard() {
+    const { totalCompleted, streak, overallProgress, goals, loading } = useGoals();
     const xp = calculateXP(goals, streak);
     const { t } = useLanguage();
 

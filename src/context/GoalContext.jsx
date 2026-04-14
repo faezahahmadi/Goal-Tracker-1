@@ -6,6 +6,7 @@ const GoalsContext = createContext();
 export function GoalsProvider({ children }) {
     const [goals, setGoals] = useState([]);
     const [editGoal, setEditGoal] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (goals.length === 0) {
@@ -15,7 +16,8 @@ export function GoalsProvider({ children }) {
                 createdAt: new Date(g.createdAt),
                 id: String(g.id)
             }));
-            setGoals(seededGoals);
+            setGoals(seededGoals)
+            setLoading(false);
         }
     }, [])
     const startEditGoal = (goal) => {
@@ -163,6 +165,7 @@ export function GoalsProvider({ children }) {
                 increaseProgress,
                 togglePause,
                 deleteGoal,
+                loading,
                 streak,
                 totalCompleted,
                 overallProgress,
