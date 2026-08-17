@@ -44,14 +44,14 @@ export default function Dashboard() {
             </Grid>
 
             <Grid container spacing={2} sx={{ mt: 0.5 }}>
-                <Grid item xs={6} sm={4}>
+                <Grid item xs={12} sm={4}>
                     <StatChip
                         icon={<EmojiEventsIcon color="secondary" />}
                         label="Longest Streak"
                         value={`${streakStats.longestStreak} days`}
                     />
                 </Grid>
-                <Grid item xs={6} sm={4}>
+                <Grid item xs={12} sm={4}>
                     <StatChip
                         icon={<CalendarViewWeekIcon color="info" />}
                         label="Weekly Completion"
