@@ -21,7 +21,7 @@ const Archive = () => {
                     (
                         <Grid container spacing={2}>
                             {completedGoals.map(goal => (
-                                <Grid item xs={12} sm={6} md={4}>
+                                <Grid item xs={12} sm={6} md={4} key={goal.id}>
                                     <GoalCard goal={goal} />
                                 </Grid>)
                             )}

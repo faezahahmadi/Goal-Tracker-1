@@ -10,19 +10,28 @@ import {
     Chip,
     LinearProgress,
     Button,
+    IconButton,
+    Tooltip,
 } from "@mui/material";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import PauseButton from "../components/PauseButton";
 import ProgressButton from "../components/ProgressButton";
 import EditButton from "../components/EditButton";
-import EditGoalModal from "../components/EditButton";
+import EditGoalModal from "../components/goals/EditGoalModal";
+import DeadlineChip from "../components/DeadlineChip";
+import NotesSection from "../components/goals/NotesSection";
 
 import TimeInfo from "../components/goals/TimeInfo";
 import StatChip from "../components/goals/StatChip";
 import { useNavigate, useParams } from "react-router-dom";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import FlagRoundedIcon from "@mui/icons-material/FlagRounded";
 import InsightsRoundedIcon from "@mui/icons-material/InsightsRounded";
 import { useGoals } from "../context/GoalContext";
+import { useCategories } from "../context/CategoryContext";
 import { useState } from "react";
+import { goalTypeOption } from "../Data/GoalOption";
+import { exportGoalAsJson } from "../utils/exportGoal";
 
 const formatDate = (date) => {
     if (!date) return "-";
@@ -33,6 +42,7 @@ const formatDate = (date) => {
 
 export default function GoalDetails() {
     const { goals } = useGoals();
+    const { getCategoryName } = useCategories();
     const navigate = useNavigate();
     const { id } = useParams();
     const [openEdit, setOpenEdit] = useState(false);
@@ -42,14 +52,14 @@ export default function GoalDetails() {
         togglePause,
         setGoals, startEditGoal } = useGoals();
 
+    const goal = Array.isArray(goals)
+        ? goals.find((g) => String(g.id) === id)
+        : null;
+
     const handleEditGoal = () => {
         startEditGoal(goal);
         setOpenEdit(true);
     }
-
-    const goal = Array.isArray(goals)
-        ? goals.find((g) => String(g.id) === id)
-        : null;
 
     if (!goal) {
         return <Typography variant="h5">The goal is not found</Typography>;
@@ -60,28 +70,43 @@ export default function GoalDetails() {
 
     return (
         <Container maxWidth="lg" sx={{ mt: 4 }}>
-            <Paper elevation={7} sx={{ p: 3 }}>
+            <Paper elevation={7} sx={{ p: { xs: 1.5, sm: 3 } }}>
                 <Card>
                     <CardContent>
-                        <Stack spacing={1}>
-                            <Typography variant="h4" fontWeight={800}>
-                                {goal.title}
-                            </Typography>
-                            <Stack direction="row" spacing={1} flexWrap="wrap">
-                                <Chip size="small" label={String(goal.category)} />
-                                <Chip size="small" label={String(goal.type)} />
-                                <Chip size="small" label={String(goal.status)} />
+                        <Stack direction="row" justifyContent="space-between" alignItems="flex-start" spacing={1}>
+                            <Stack spacing={1} sx={{ minWidth: 0 }}>
+                                <Typography variant="h4" fontWeight={800} sx={{ wordBreak: "break-word" }}>
+                                    {goal.title}
+                                </Typography>
+                                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap sx={{ rowGap: 1 }}>
+                                    <Chip size="small" label={getCategoryName(goal.category)} />
+                                    <Chip size="small" label={goalTypeOption[goal.goalType] || goal.goalType} />
+                                    <Chip size="small" label={String(goal.status)} />
+                                    <DeadlineChip deadline={goal.deadline} />
+                                </Stack>
                             </Stack>
+                            <Tooltip title="Export goal">
+                                <IconButton onClick={() => exportGoalAsJson(goal)} sx={{ flexShrink: 0 }}>
+                                    <FileDownloadIcon />
+                                </IconButton>
+                            </Tooltip>
                         </Stack>
                     </CardContent>
                 </Card>
 
                 <Grid container spacing={2} sx={{ mt: 2 }}>
-                    <Grid xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3}>
                         <StatChip
                             icon={<InsightsRoundedIcon fontSize="small" />}
                             label="Progress"
                             value={`${goal.progress}/${goal.target}`}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <StatChip
+                            icon={<FlagRoundedIcon fontSize="small" />}
+                            label="Notes"
+                            value={(goal.notes || []).length}
                         />
                     </Grid>
                 </Grid>
@@ -95,17 +120,19 @@ export default function GoalDetails() {
                         <LinearProgress
                             variant="determinate"
                             value={progressPercent}
-                            sx={{ my: 2 }}
+                            sx={{ my: 2, height: 8, borderRadius: 999 }}
                             color={goal.progress === goal.target ? "success" : "primary"}
                         />
                     </CardContent>
                 </Card>
                 <Grid container spacing={2} sx={{ mt: 2 }}>
-                    <Grid xs={12} md={5}>
+                    <Grid item xs={12} md={5}>
                         <Typography fontWeight={600}>Goal Controls</Typography>
 
                         <Stack direction="row"
-                            spacing={1} mt={2}>
+                            flexWrap="wrap"
+                            useFlexGap
+                            sx={{ gap: 1, mt: 2 }}>
                             <ProgressButton
                                 onClick={() => increaseProgress(goal.id, goal.target)}
                                 disabled={goal.target === goal.progress} />
@@ -118,16 +145,15 @@ export default function GoalDetails() {
                             <EditButton
                                 onClick={() => handleEditGoal()}
                             />
-                            <EditGoalModal
-                                open={openEdit}
-                                onClose={() => setOpenEdit(false)} />
-
                         </Stack>
+                        <EditGoalModal
+                            open={openEdit}
+                            onClose={() => setOpenEdit(false)} />
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={2} sx={{ mt: 2 }}>
-                    <Grid xs={12} md={5}>
+                    <Grid item xs={12} md={5}>
                         <Typography fontWeight={600}>Schedule</Typography>
                         <Stack spacing={1.2} mt={1}>
                             <TimeInfo
@@ -141,12 +167,14 @@ export default function GoalDetails() {
                             />
                             <TimeInfo
                                 icon={<CalendarMonthRoundedIcon fontSize="small" color="action" />}
-                                label="End Date: "
-                                value={formatDate(goal.endDate)}
+                                label="Deadline: "
+                                value={formatDate(goal.deadline)}
                             />
                         </Stack>
                     </Grid>
                 </Grid>
+
+                <NotesSection goal={goal} />
             </Paper>
         </Container>
     );

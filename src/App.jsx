@@ -7,6 +7,8 @@ import GoalsList from "./pages/GoalsList";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import GoalDetails from "./pages/GoalDetails";
+import CalendarView from "./pages/Calendar";
+import Analytics from "./pages/Analytics";
 import getTheme from "./theme";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -15,6 +17,7 @@ import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
 
 import { GoalsProvider } from "./context/GoalContext";
+import { CategoryProvider } from "./context/CategoryContext";
 import Archive from "./pages/Archive";
 import { useLanguage } from "./context/LanguageContext";
 
@@ -33,21 +36,25 @@ function App() {
   return (
     <CacheProvider value={dir === "rtl" ? cacheRtl : ltrCache}>
 
-      <GoalsProvider>
-        <CssBaseline />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="/goalsList" element={<GoalsList />} />
-            <Route path="/Archive" element={<Archive />} />
-            <Route path="/goalsList/:id" element={<GoalDetails />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/createGoal" element={<CreateGoal />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </GoalsProvider>
+      <CategoryProvider>
+        <GoalsProvider>
+          <CssBaseline />
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="/goalsList" element={<GoalsList />} />
+              <Route path="/Archive" element={<Archive />} />
+              <Route path="/goalsList/:id" element={<GoalDetails />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/createGoal" element={<CreateGoal />} />
+              <Route path="/calendar" element={<CalendarView />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </GoalsProvider>
+      </CategoryProvider>
 
     </CacheProvider>
 

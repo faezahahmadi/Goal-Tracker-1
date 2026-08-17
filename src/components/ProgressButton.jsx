@@ -6,8 +6,10 @@ export default function ProgressButton({ onClick, disabled }) {
     return (
         <Button variant="contained"
             color="primary"
+            size="small"
             disabled={disabled}
-            onClick={onClick}>
+            onClick={onClick}
+            sx={{ flex: "1 1 auto", minWidth: 110 }}>
             {t("addProgress")}
         </Button>
 

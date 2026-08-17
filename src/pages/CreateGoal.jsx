@@ -2,7 +2,7 @@ import {
     Container, TextField, Typography,
     Paper, Stack, Button,
     MenuItem, Box, InputAdornment,
-    IconButton
+    IconButton, Divider, ListItemIcon
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,9 +10,12 @@ import { CreateGoalSchema } from "../Validation/CreateGoalSchema";
 import { Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import AddIcon from "@mui/icons-material/Add";
 import { useGoals } from "../context/GoalContext";
-import { useEffect, useMemo } from "react";
+import { useCategories } from "../context/CategoryContext";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import CreateCategoryModal from "../components/Categories/CreateCategoryModal";
 
 export default function CreateGoal({ isModal, onClose }) {
     const { addGoal,
@@ -20,6 +23,8 @@ export default function CreateGoal({ isModal, onClose }) {
         updateGoal,
         editGoal
     } = useGoals();
+    const { categories } = useCategories();
+    const [categoryModalOpen, setCategoryModalOpen] = useState(false);
 
     const { t } = useLanguage();
     const navigate = useNavigate();
@@ -28,6 +33,7 @@ export default function CreateGoal({ isModal, onClose }) {
         handleSubmit,
         control,
         reset,
+        setValue,
         formState: { errors, isValid } } = useForm({
             resolver: yupResolver(CreateGoalSchema()),
             mode: "all",
@@ -36,7 +42,8 @@ export default function CreateGoal({ isModal, onClose }) {
                 category: "",
                 goalType: "",
                 target: 0,
-                startDate: ""
+                startDate: "",
+                deadline: ""
             }
         });
     const onSubmit = (data) => {
@@ -50,11 +57,11 @@ export default function CreateGoal({ isModal, onClose }) {
             onClose();
         else
             navigate("/goalsList")
-        console.log(data);
     }
     function handleReset() {
         reset();
-        navigate(-1);
+        if (isModal && onClose) onClose();
+        else navigate(-1);
     }
 
 
@@ -67,16 +74,13 @@ export default function CreateGoal({ isModal, onClose }) {
                 target: editGoal.target || 0,
                 startDate: editGoal.startDate ?
                     new Date(editGoal.startDate).toISOString().split("T")[0]
+                    : "",
+                deadline: editGoal.deadline ?
+                    new Date(editGoal.deadline).toISOString().split("T")[0]
                     : ""
             })
         };
     }, [editGoal, reset])
-
-    const categories = [
-        { id: "health", name: t("health") },
-        { id: "study", name: t("study") },
-        { id: "work", name: t("work") },
-        { id: "personal", name: t("personal") }];
 
     const goalType = [
         { id: "daily", name: t("daily") },
@@ -101,10 +105,14 @@ export default function CreateGoal({ isModal, onClose }) {
         }
     };
 
+    const CATEGORY_ADD_NEW = "__add_new_category__";
+
     return (
-        <Container maxWidth="lg" sx={{ mt: 4 }}>
-            <Paper elevation={7} sx={{ p: 3 }}>
-                <Typography sx={{ p: 0.8 }} variant="h4" fontWeight="600" >{editGoal ? t("editGoal") : t("CreateNewGoal")}</Typography>
+        <Container maxWidth="lg" sx={{ mt: isModal ? 0 : 4 }}>
+            <Paper elevation={isModal ? 0 : 7} sx={{ p: isModal ? 0 : 3 }}>
+                {!isModal && (
+                    <Typography sx={{ p: 0.8 }} variant="h4" fontWeight="600" >{editGoal ? t("editGoal") : t("CreateNewGoal")}</Typography>
+                )}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack spacing={3} sx={{ p: 2 }} >
                         <TextField
@@ -123,13 +131,33 @@ export default function CreateGoal({ isModal, onClose }) {
                                 select
                                 label={t("goalCategory")}
                                 fullWidth
-                                {...field}>
+                                {...field}
+                                onChange={(e) => {
+                                    if (e.target.value === CATEGORY_ADD_NEW) {
+                                        setCategoryModalOpen(true);
+                                        return;
+                                    }
+                                    field.onChange(e);
+                                }}>
                                 {categories.map((cat) => (
                                     <MenuItem key={cat.id}
                                         value={cat.id}>
-                                        {t(cat.name)}
+                                        <Box component="span" sx={{
+                                            display: "inline-block",
+                                            width: 10, height: 10, borderRadius: "50%",
+                                            bgcolor: cat.color, mr: 1
+                                        }} />
+                                        {cat.name}
                                     </MenuItem>
-                                ))} </TextField>
+                                ))}
+                                <Divider />
+                                <MenuItem value={CATEGORY_ADD_NEW} sx={{ color: "primary.main", fontWeight: 600 }}>
+                                    <ListItemIcon sx={{ minWidth: 28 }}>
+                                        <AddIcon fontSize="small" color="primary" />
+                                    </ListItemIcon>
+                                    Create category
+                                </MenuItem>
+                            </TextField>
                             )}>
                         </Controller>
 
@@ -199,8 +227,40 @@ export default function CreateGoal({ isModal, onClose }) {
                                             </InputAdornment>),
                                     }} />
                             )} />
+
+                        <Controller
+                            name="deadline"
+                            control={control}
+                            render={({ field }) => (
+                                <TextField
+                                    {...field}
+                                    value={field.value || ""}
+                                    type="date"
+                                    label="Deadline (optional)"
+                                    fullWidth
+                                    error={!!errors.deadline}
+                                    helperText={errors.deadline?.message || "Used for deadline status tracking"}
+                                    InputLabelProps={{ shrink: true }}
+                                    sx={dateTimeFieldSx}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    size="small"
+                                                    edge="end"
+                                                    onMouseDown={(e) => e.preventDefault()}
+                                                    onClick={openNativePicker}
+                                                >
+                                                    <CalendarMonthRoundedIcon
+                                                        sx={{
+                                                            fontSize: 20,
+                                                        }} />
+                                                </IconButton>
+                                            </InputAdornment>),
+                                    }} />
+                            )} />
                     </Stack>
-                    <Stack direction="row" spacing={3}>
+                    <Stack direction="row" spacing={3} sx={{ px: 2 }}>
                         <Button type="submit" variant="contained" disabled={!isValid}>
                             {editGoal ? t("updateGoal") : t("createGoal")}
                         </Button>
@@ -208,6 +268,12 @@ export default function CreateGoal({ isModal, onClose }) {
                     </Stack>
                 </form>
             </Paper>
+
+            <CreateCategoryModal
+                open={categoryModalOpen}
+                onClose={() => setCategoryModalOpen(false)}
+                onCreated={(cat) => setValue("category", cat.id, { shouldValidate: true })}
+            />
         </Container>
 
     );

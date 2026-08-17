@@ -1,22 +1,5 @@
-const calculateXP = (goals) => {
-    if (!goals || goals.length === 0) return 0;
-
-    let xp = 0;
-
-    goals.forEach(goal => {
-        if (goal.logs && goal.logs.length > 0) {
-            goal.logs.forEach(log => {
-                xp += log.value * 10;
-            });
-        }
-
-        //  Completion bonus
-        if (goal.status === "Completed") {
-            xp += 40;
-        }
-    });
-
-    return xp;
-};
+// Kept as a thin re-export so existing imports keep working; the real logic
+// (and the leveling system built on top of it) now lives in utils/points.js.
+import { calculateXP } from "../../utils/points";
 
 export default calculateXP;

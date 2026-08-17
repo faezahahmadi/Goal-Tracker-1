@@ -9,7 +9,9 @@ export default function DeleteButton({ onClick }) {
         <Button
             variant="contained"
             color="error"
+            size="small"
             onClick={onClick}
+            sx={{ flex: "1 1 auto", minWidth: 110 }}
             startIcon={<DeleteIcone />}>
             {t("delete")}
         </Button>

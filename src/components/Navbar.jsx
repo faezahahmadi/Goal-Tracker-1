@@ -11,14 +11,21 @@ import MenuIcon from "@mui/icons-material/Menu";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { useLanguage } from "../context/LanguageContext";
-import { Button } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 import target from "../assets/target.svg"
-export default function Navbar({ mode, onToggleMode }) {
+export default function Navbar({ mode, onToggleMode, onMenuClick }) {
     const { language, toggleLanguage, t } = useLanguage();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <AppBar position="static" elevation={10} >
             <Toolbar sx={{ gap: 1 }}>
+                {isMobile && (
+                    <IconButton color="inherit" edge="start" onClick={onMenuClick} sx={{ mr: 0.5 }}>
+                        <MenuIcon />
+                    </IconButton>
+                )}
                 <Box component="img" src={target} sx={{ height: 32, width: 32, mr: 1, color: "white" }} />
                 <Box sx={{ flexGrow: 1, minWidth: 0 }}>
                     <Typography

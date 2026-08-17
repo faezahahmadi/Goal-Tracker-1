@@ -35,8 +35,7 @@ export default function GoalsList() {
         )
         .sort((a, b) => {
             if (sortBy === "Newest") {
-                return
-                new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
             }
             if (sortBy === "Progress") {
                 return (b.progress / b.target) - (a.progress / a.target);
@@ -57,7 +56,7 @@ export default function GoalsList() {
             </Box>
             <Divider />
 
-            <Paper elevation={7} sx={{ p: 3, mt: 5 }}>
+            <Paper elevation={7} sx={{ p: { xs: 1.5, sm: 3 }, mt: 5 }}>
                 <GoalsListHeader
                     search={trimmedSearch}
                     setSearch={setSearch}
