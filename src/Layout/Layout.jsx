@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { useGoals } from "../context/GoalContext";
+import { useState } from "react";
 
 import { Box, CssBaseline, ThemeProvider } from "@mui/material"
 import { CircularProgress } from "@mui/material";
@@ -12,9 +13,10 @@ export default function Layout() {
     const { mode, toggleMode, theme } = useThemeContext();
     const { loading } = useGoals();
 
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleMenuClick = () => {
-        alert("Menu clicked (later we can make this open a drawer)");
+        setMobileOpen((v) => !v);
     };
 
     if (loading) {
@@ -33,7 +35,7 @@ export default function Layout() {
                 mode={mode}
                 onToggleMode={toggleMode} />
             <Box sx={{ display: "flex" }}>
-                <SideBar />
+                <SideBar mobileOpen={mobileOpen} onCloseMobile={() => setMobileOpen(false)} />
                 <Box component="main" sx={{ flexGrow: 1, p: { xs: 1, sm: 2, md: 3 } }}>
                     <Paper elevation={3} sx={{ p: 3, minHeight: "calc(100vh - 64px)" }}>
                         <Outlet />
