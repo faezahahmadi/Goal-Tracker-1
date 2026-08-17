@@ -97,11 +97,11 @@ export default function Analytics() {
 
             <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item xs={12} md={7}>
-                    <Paper elevation={4} sx={{ p: 2, height: 340 }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 300, md: 420 } }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Activity - Last 30 Days
                         </Typography>
-                        <ResponsiveContainer width="100%" height="85%">
+                        <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={dailyActivity}>
                                 <defs>
                                     <linearGradient id="activityFill" x1="0" y1="0" x2="0" y2="1">
@@ -130,11 +130,11 @@ export default function Analytics() {
                 </Grid>
 
                 <Grid item xs={12} md={5}>
-                    <Paper elevation={4} sx={{ p: 2, height: 340 }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 300, md: 420 } }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Goals by Status
                         </Typography>
-                        <ResponsiveContainer width="100%" height="85%">
+                        <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
                                     data={statusData}
@@ -161,11 +161,11 @@ export default function Analytics() {
 
             <Grid container spacing={2} sx={{ mt: 1, mb: 4 }}>
                 <Grid item xs={12} md={7}>
-                    <Paper elevation={4} sx={{ p: 2, height: 320 }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 320, md: 420 } }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Progress by Category (%)
                         </Typography>
-                        <ResponsiveContainer width="100%" height="85%">
+                        <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={categoryData}>
                                 <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
                                 <XAxis dataKey="category" tick={{ fontSize: 12, fill: textColor }} />
@@ -182,11 +182,11 @@ export default function Analytics() {
                 </Grid>
 
                 <Grid item xs={12} md={5}>
-                    <Paper elevation={4} sx={{ p: 2, height: 320 }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 320, md: 420 } }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Goals by Type
                         </Typography>
-                        <ResponsiveContainer width="100%" height="85%">
+                        <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
                                     data={typeData}
