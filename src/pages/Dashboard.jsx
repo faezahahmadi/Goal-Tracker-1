@@ -34,13 +34,14 @@ export default function Dashboard() {
                         overallProgress={overallProgress} />
                 </Grid>
 
+                <Grid item xs={12} md={9}>
+                    <QuickActions />
+                </Grid>
+
                 <Grid item xs={12} md={3}>
                     <LevelCard xp={totalXP} />
                 </Grid>
 
-                <Grid item xs={12} md={9}>
-                    <QuickActions />
-                </Grid>
             </Grid>
 
             <Grid container spacing={2} sx={{ mt: 0.5 }}>

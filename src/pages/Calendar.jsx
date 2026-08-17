@@ -114,8 +114,8 @@ export default function CalendarView() {
                     ))}
                 </Stack>
 
-                <Box sx={{ minWidth: 630 }}>
-                    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 0.5, mb: 0.5 }}>
+                <Box sx={{ width: '100%' }}>
+                    <Box sx={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: 0.5, mb: 0.5 }}>
                         {weekdayLabels.map((label) => (
                             <Typography
                                 key={label}
@@ -132,7 +132,7 @@ export default function CalendarView() {
                     {weeks.map((week, wi) => (
                         <Box
                             key={wi}
-                            sx={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 0.5, mb: 0.5 }}
+                            sx={{ display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", gap: 0.5, mb: 0.5 }}
                         >
                             {week.map((date, di) => {
                                 const key = toDateKey(date);
@@ -144,8 +144,8 @@ export default function CalendarView() {
                                         key={di}
                                         variant="outlined"
                                         sx={{
-                                            minHeight: 92,
-                                            p: 0.7,
+                                            minHeight: { xs: 72, sm: 92 },
+                                            p: { xs: 0.5, sm: 0.7 },
                                             bgcolor: date ? "background.paper" : "action.hover",
                                             borderColor: isToday ? "primary.main" : "divider",
                                             borderWidth: isToday ? 2 : 1,

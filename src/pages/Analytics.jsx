@@ -65,28 +65,28 @@ export default function Analytics() {
             <Divider />
 
             <Grid container spacing={2} sx={{ mt: 3 }}>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={12} md={3}>
                     <StatChip
                         icon={<WhatshotIcon color="warning" />}
                         label="Current Streak"
                         value={`${streakStats.currentStreak} days`}
                     />
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={12} md={3}>
                     <StatChip
                         icon={<EmojiEventsIcon color="secondary" />}
                         label="Longest Streak"
                         value={`${streakStats.longestStreak} days`}
                     />
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={12} md={3}>
                     <StatChip
                         icon={<CalendarViewWeekIcon color="info" />}
                         label="Weekly Completion"
                         value={`${streakStats.weeklyCompletion}%`}
                     />
                 </Grid>
-                <Grid item xs={6} md={3}>
+                <Grid item xs={12} md={3}>
                     <StatChip
                         icon={<CalendarMonthIcon color="success" />}
                         label="Monthly Completion"
@@ -94,9 +94,9 @@ export default function Analytics() {
                     />
                 </Grid>
             </Grid>
-
-            <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item xs={12} md={7}>
+            <Grid container spacing={2} sx={{ mt: 1, mb: 4, justifyContent: 'space-between' }}>
+                {/* Chart items: full width on XS, ~45% on large screens to show two per row */}
+                <Grid item xs={12} sx={{ width: { xs: '100%', lg: '45%' }, flexBasis: { xs: '100%', lg: '45%' }, maxWidth: { xs: '100%', lg: '45%' } }}>
                     <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Activity - Last 30 Days
@@ -131,7 +131,7 @@ export default function Analytics() {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} sx={{ width: { xs: '100%', lg: '45%' }, flexBasis: { xs: '100%', lg: '45%' }, maxWidth: { xs: '100%', lg: '45%' } }}>
                     <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Goals by Status
@@ -161,10 +161,8 @@ export default function Analytics() {
                         </Box>
                     </Paper>
                 </Grid>
-            </Grid>
 
-            <Grid container spacing={2} sx={{ mt: 1, mb: 4 }}>
-                <Grid item xs={12} md={7}>
+                <Grid item xs={12} sx={{ width: { xs: '100%', lg: '45%' }, flexBasis: { xs: '100%', lg: '45%' }, maxWidth: { xs: '100%', lg: '45%' } }}>
                     <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Progress by Category (%)
@@ -187,7 +185,7 @@ export default function Analytics() {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} md={5}>
+                <Grid item xs={12} sx={{ width: { xs: '100%', lg: '45%' }, flexBasis: { xs: '100%', lg: '45%' }, maxWidth: { xs: '100%', lg: '45%' } }}>
                     <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Goals by Type
