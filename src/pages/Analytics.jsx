@@ -97,111 +97,119 @@ export default function Analytics() {
 
             <Grid container spacing={2} sx={{ mt: 1 }}>
                 <Grid item xs={12} md={7}>
-                    <Paper elevation={4} sx={{ p: 2, height: { xs: 300, md: 420 } }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Activity - Last 30 Days
                         </Typography>
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={dailyActivity}>
-                                <defs>
-                                    <linearGradient id="activityFill" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#1954d2" stopOpacity={0.5} />
-                                        <stop offset="95%" stopColor="#1954d2" stopOpacity={0.03} />
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-                                <XAxis
-                                    dataKey="label"
-                                    tick={{ fontSize: 11, fill: textColor }}
-                                    interval={4}
-                                />
-                                <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: textColor }} />
-                                <Tooltip />
-                                <Area
-                                    type="monotone"
-                                    dataKey="count"
-                                    stroke="#1954d2"
-                                    fill="url(#activityFill)"
-                                    name="Actions logged"
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
+                        <Box sx={{ flex: 1, minHeight: 0 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={dailyActivity} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                                    <defs>
+                                        <linearGradient id="activityFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#1954d2" stopOpacity={0.5} />
+                                            <stop offset="95%" stopColor="#1954d2" stopOpacity={0.03} />
+                                        </linearGradient>
+                                    </defs>
+                                    <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                                    <XAxis
+                                        dataKey="label"
+                                        tick={{ fontSize: 11, fill: textColor }}
+                                        interval={4}
+                                    />
+                                    <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: textColor }} />
+                                    <Tooltip />
+                                    <Area
+                                        type="monotone"
+                                        dataKey="count"
+                                        stroke="#1954d2"
+                                        fill="url(#activityFill)"
+                                        name="Actions logged"
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </Box>
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12} md={5}>
-                    <Paper elevation={4} sx={{ p: 2, height: { xs: 300, md: 420 } }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Goals by Status
                         </Typography>
-                        <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie
-                                    data={statusData}
-                                    dataKey="value"
-                                    nameKey="name"
-                                    innerRadius={55}
-                                    outerRadius={90}
-                                    paddingAngle={3}
-                                >
-                                    {statusData.map((entry, i) => (
-                                        <Cell
-                                            key={entry.name}
-                                            fill={STATUS_COLORS[entry.name] || PIE_COLORS[i % PIE_COLORS.length]}
-                                        />
-                                    ))}
-                                </Pie>
-                                <Legend />
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        <Box sx={{ flex: 1, minHeight: 0 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={statusData}
+                                        dataKey="value"
+                                        nameKey="name"
+                                        innerRadius={'30%'}
+                                        outerRadius={'55%'}
+                                        paddingAngle={3}
+                                    >
+                                        {statusData.map((entry, i) => (
+                                            <Cell
+                                                key={entry.name}
+                                                fill={STATUS_COLORS[entry.name] || PIE_COLORS[i % PIE_COLORS.length]}
+                                            />
+                                        ))}
+                                    </Pie>
+                                    <Legend />
+                                    <Tooltip />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </Box>
                     </Paper>
                 </Grid>
             </Grid>
 
             <Grid container spacing={2} sx={{ mt: 1, mb: 4 }}>
                 <Grid item xs={12} md={7}>
-                    <Paper elevation={4} sx={{ p: 2, height: { xs: 320, md: 420 } }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Progress by Category (%)
                         </Typography>
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={categoryData}>
-                                <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-                                <XAxis dataKey="category" tick={{ fontSize: 12, fill: textColor }} />
-                                <YAxis domain={[0, 100]} tick={{ fontSize: 12, fill: textColor }} />
-                                <Tooltip />
-                                <Bar dataKey="progress" radius={[6, 6, 0, 0]}>
-                                    {categoryData.map((entry, i) => (
-                                        <Cell key={entry.category} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                    ))}
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
+                        <Box sx={{ flex: 1, minHeight: 0 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={categoryData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                                    <XAxis dataKey="category" tick={{ fontSize: 12, fill: textColor }} />
+                                    <YAxis domain={[0, 100]} tick={{ fontSize: 12, fill: textColor }} />
+                                    <Tooltip />
+                                    <Bar dataKey="progress" radius={[6, 6, 0, 0]}>
+                                        {categoryData.map((entry, i) => (
+                                            <Cell key={entry.category} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                        ))}
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Box>
                     </Paper>
                 </Grid>
 
                 <Grid item xs={12} md={5}>
-                    <Paper elevation={4} sx={{ p: 2, height: { xs: 320, md: 420 } }}>
+                    <Paper elevation={4} sx={{ p: 2, height: { xs: 360, md: 520 }, display: 'flex', flexDirection: 'column' }}>
                         <Typography fontWeight={700} sx={{ mb: 1 }}>
                             Goals by Type
                         </Typography>
-                        <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie
-                                    data={typeData}
-                                    dataKey="value"
-                                    nameKey="name"
-                                    outerRadius={90}
-                                    label
-                                >
-                                    {typeData.map((entry, i) => (
-                                        <Cell key={entry.name} fill={PIE_COLORS[i % PIE_COLORS.length]} />
-                                    ))}
-                                </Pie>
-                                <Tooltip />
-                            </PieChart>
-                        </ResponsiveContainer>
+                        <Box sx={{ flex: 1, minHeight: 0 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={typeData}
+                                        dataKey="value"
+                                        nameKey="name"
+                                        outerRadius={'55%'}
+                                        label
+                                    >
+                                        {typeData.map((entry, i) => (
+                                            <Cell key={entry.name} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </Box>
                     </Paper>
                 </Grid>
             </Grid>
