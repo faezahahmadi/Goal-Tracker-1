@@ -312,7 +312,19 @@ goaltracker/
 └── README.md
 ```
 ---
-
+## screenshots
+<img width="1024" height="457" alt="8" src="https://github.com/user-attachments/assets/7433aca8-1880-4958-bbda-d9dc499de809" />
+<img width="644" height="722" alt="10" src="https://github.com/user-attachments/assets/f4f626e8-882d-423d-b40b-0696aeabf5fa" />
+<img width="1365" height="641" alt="7" src="https://github.com/user-attachments/assets/c9808f56-bb1d-4c9b-8221-63c2306bdccd" />
+<img width="1363" height="621" alt="6" src="https://github.com/user-attachments/assets/391513c9-d604-4f07-86e6-5b0136055238" />
+<img width="1355" height="636" alt="5" src="https://github.com/user-attachments/assets/dee350a8-09b0-4993-a309-532b01498eb4" />
+<img width="692" height="626" alt="4" src="https://github.com/user-attachments/assets/7e98ba6a-7c4d-4873-a701-07de9ddccc2f" />
+<img width="1361" height="639" alt="3" src="https://github.com/user-attachments/assets/7bb2d7e7-1747-4e89-8e21-7612db74414d" />
+<img width="1363" height="619" alt="2" src="https://github.com/user-attachments/assets/287513c6-a3ab-42c8-98a4-5a25267d0921" />
+<img width="1366" height="648" alt="1" src="https://github.com/user-attachments/assets/961f15f3-ca3b-45bb-8627-e52381c92c72" />
+<img width="1366" height="643" alt="14" src="https://github.com/user-attachments/assets/65ddfb4e-0870-446d-ba88-14d0e161a591" />
+<img width="1366" height="639" alt="13" src="https://github.com/user-attachments/assets/6bc85dc6-30b9-41d9-a75b-cd2e2979168e" />
+<img width="1366" height="645" alt="12" src="https://github.com/user-attachments/assets/297ad167-2dbd-4341-8fbb-56c7082f5840" />
+<img width="385" height="461" alt="11" src="https://github.com/user-attachments/assets/67882eaf-ab2f-4fb9-8b03-3b2024a08dbd" />
 👩‍💻 Developer
-
 Faezah Ahmadi
