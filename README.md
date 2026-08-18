@@ -326,5 +326,12 @@ goaltracker/
 <img width="1366" height="639" alt="13" src="https://github.com/user-attachments/assets/6bc85dc6-30b9-41d9-a75b-cd2e2979168e" />
 <img width="1366" height="645" alt="12" src="https://github.com/user-attachments/assets/297ad167-2dbd-4341-8fbb-56c7082f5840" />
 <img width="385" height="461" alt="11" src="https://github.com/user-attachments/assets/67882eaf-ab2f-4fb9-8b03-3b2024a08dbd" />
+<img width="1080" height="2400" alt="Screenshot_20260817_124653_Chrome" src="https://github.com/user-attachments/assets/ab5da45f-e0e3-41c4-ac32-51697aea25ff" />
+<img width="1080" height="2400" alt="Screenshot_20260817_124641_Chrome" src="https://github.com/user-attachments/assets/167ec781-e36a-42b8-87fd-a038adb50c78" />
+<img width="1080" height="2400" alt="Screenshot_20260817_124623_Chrome" src="https://github.com/user-attachments/assets/e6b2987a-77f8-4403-8330-ab54d7449860" />
+<img width="1080" height="2400" alt="Screenshot_20260817_115211_Chrome" src="https://github.com/user-attachments/assets/2c2de542-be4a-4b66-a1b5-cce4d5747bc0" />
+<img width="1080" height="2400" alt="Screenshot_20260817_124721_Chrome" src="https://github.com/user-attachments/assets/0f257bf2-db9f-4b2a-a19e-bada60c30ecd" />
+<img width="1080" height="2400" alt="Screenshot_20260817_124657_Chrome" src="https://github.com/user-attachments/assets/b67a20e0-486a-4a8d-a94d-2eda71351eda" />
+
 👩‍💻 Developer
 Faezah Ahmadi
